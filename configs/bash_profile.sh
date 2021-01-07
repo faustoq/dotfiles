@@ -17,6 +17,7 @@ export NVM_DIR=~/.nvm
 export ZSH_AUTOSUGGEST_USE_ASYNC=1
 export PATH=~/.composer/vendor/bin:$PATH  # Run composer global packages
 export BREW_PATH=/usr/local               # $(brew --prefix)
+export ZSH_THEME=half-life
 
 # Google Cloud SDK
 export CLOUDSDK_PYTHON="/usr/local/opt/python@3.8/libexec/bin/python"
@@ -43,7 +44,7 @@ antigen use oh-my-zsh
 for plugin in "${OHMYZSH_PLUGINS[@]}"; do
   antigen bundle "$plugin"
 done
-antigen theme half-life
+
 antigen apply
 
 # One letter alias
@@ -59,10 +60,7 @@ alias please='sudo'
 alias sudoedit='sudo nano'
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 alias chrome-debug="chrome --remote-debugging-port=9222"
-alias urlencode='python3 -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
-alias plistbuddy="/usr/libexec/PlistBuddy"
 alias dc='docker-compose'
-alias badge="tput bel"
 alias stfu="osascript -e 'set volume output muted true'"
 alias pumpitup="osascript -e 'set volume 7'"
 alias md5sum="md5"
@@ -124,13 +122,6 @@ alias unexport='unset'
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
-
-#read documents
-alias -s pdf=acroread
-alias -s ps=gv
-alias -s dvi=xdvi
-alias -s chm=xchm
-alias -s djvu=djview
 
 #list whats inside packed file
 alias -s zip="unzip -l"
@@ -205,39 +196,6 @@ http-sniff() {
 
 http-dump() {
   sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E "Host\: .*|GET \/.*"
-}
-
-# Git amend and push (forced)
-gam() {
-  branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
-  if [ "$branch" = "master" ] && [ "$1" != "-f" ]; then
-    echo "Sorry, I can't do this when you're on master"
-    return
-  fi
-  git commit -n --amend --no-edit &&
-  git push --force-with-lease
-}
-
-# Simple commit and push
-got() {
-  git commit -m "$1" &&
-  git push
-}
-
-# Simple commit and push (skip pre-commits)
-gotn() {
-  git commit -n -m "$1" &&
-  git push
-}
-
-# Sync this branch with origin/master
-g-sync() {
-  git fetch origin && git rebase origin/master
-}
-
-g-prune() {
-  git gc --aggressive --prune
-  git branch --merged | grep -E -v "(^\*|master|beta)" | xargs git branch -d
 }
 
 http-server() {

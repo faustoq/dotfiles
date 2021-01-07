@@ -46,6 +46,7 @@ This bash script handles everything in just over a couple of minutes thanks to [
 - Firefox ([Website](https://www.mozilla.org/en-US/firefox/))
 - Microsoft Edge ([Website](https://www.microsoft.com/en-us/edge))
 - Blisk ([Website](https://blisk.io/))
+- Brave ([Website](https://brave.com/))
 - iTerm2 ([Website](https://iterm2.com/))
 - Sublime Text ([Website](https://www.sublimetext.com/))
 - Visual Studio Code ([Website](https://code.visualstudio.com/))

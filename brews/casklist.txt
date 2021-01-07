@@ -2,6 +2,7 @@ google-chrome
 firefox
 microsoft-edge
 blisk
+brave-browser
 xquartz
 charles
 iterm2

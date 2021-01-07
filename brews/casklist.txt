@@ -1,6 +1,7 @@
 google-chrome
 firefox
 microsoft-edge
+blisk
 xquartz
 charles
 iterm2

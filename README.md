@@ -12,8 +12,14 @@ While I make myself a cup of ☕️ , this script handles all those boring chore
 
 ---
 
-## Setup
-Download or clone this repository under `~/.dotfiles` directory.
+## Quick Setup
+
+**Required:** Install XCode Command Line Tools
+```bash
+xcode-select --install
+```
+
+Download or clone this repository under `~/.dotfiles` directory
 ```bash
 cd && git clone git@github.com:faustoq/dotfiles.git .dotfiles
 ```

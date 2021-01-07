@@ -1,11 +1,8 @@
 #!/bin/bash
 
-BR='\n'
+BR='\n\n'
 MSG_OPEN='\n\n\033[40;38;5;82m➡️ '
 MSG_CLOSE='\033[0m\n\n'
-
-printf "${MSG_OPEN} Install Xcode tools ${MSG_CLOSE}"
-xcode-select --install
 
 printf "${MSG_OPEN} Installing and upgrading Brew ${MSG_CLOSE}"
 [ -s "/usr/local/bin/brew" ] || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -26,6 +23,6 @@ printf "${MSG_OPEN} Cleaning ${MSG_CLOSE}"
 qlmanage -r
 brew cleanup
 
-printf "${BR}${BR}✨ Done.${BR}${BR}"
+printf "${BR}✨ Done.${BR}"
 
 exit

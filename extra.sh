@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BR='\n'
+BR='\n\n'
 MSG_OPEN='\n\n\033[40;38;5;82m➡️ '
 MSG_CLOSE='\033[0m\n\n'
 
@@ -30,6 +30,6 @@ ln -svf ~/.dotfiles/configs/bash_profile.sh ~/.bash_profile
 ln -svf ~/.dotfiles/configs/gitignore_global.txt ~/.gitignore_global
 touch ~/.bash_profile_custom
 
-printf "${BR}${BR}✨ Done.${BR}${BR}"
+printf "${BR}✨ Done.${BR}"
 
 exit

@@ -79,7 +79,7 @@ This bash script handles everything in just over a couple of minutes thanks to [
 - Aerial ([Github](https://github.com/JohnCoates/Aerial))
 
 ### Other Homebrew apps included:
-asciinema, autoconf, autojump, broot, ccache, cmake, colordiff, colortail, composer, coreutils, ffmpeg, findutils, freetype, fswatch, fzf, geoip, gettext, git, git-lfs, htop, kubectx, mackup, mas, midnight-commander, moreutils, nmap, node, nvm, openssl, php, php-code-sniffer, python, ripgrep, shellcheck, socat, sox, sqlite, sqlmap, terminal-notifier, tldr, wget, wifi-password, yarn, youtube-dl, zlib... and more!
+asciinema, autoconf, autojump, broot, ccache, cmake, colordiff, colortail, composer, coreutils, ffmpeg, findutils, freetype, fswatch, fzf, geoip, gettext, git, git-lfs, htop, kubectx, mackup, mas, midnight-commander, moreutils, nmap, node, nvm, openssl, php, php-code-sniffer, python, redis,  sqlite, sqlmap, terminal-notifier, tldr, wget, yarn, youtube-dl, zlib... and more!
 
 ## Extras:
 - iTerm shell integration ([more informations](https://iterm2.com/documentation-shell-integration.html))

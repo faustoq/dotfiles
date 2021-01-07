@@ -3,9 +3,9 @@
 This project is everything I need to feel at 🏠  on **a brand new Macbook**, so I can start coding right away. 🧑‍💻
 
 While I make myself a cup of ☕️ , this script handles all those boring chores such as:
-- installing web browsers 🌎, code editors ⌨️, Docker 🐳, latest PHP, NodeJS and Python 🔧, Spotify 🎧, some messaging apps 💬 and a bunch of other stuff
+- installing web browsers 🌎, code editors ⌨️, Docker 🐳, latest PHP, NodeJS and Python 🔧, Spotify 🎧, some messaging apps 💬 and a bunch of other stuff...
 - install a list of global ***npm*** and ***composer*** packages 📦
-- customise and keep in sync bash, zsh, gitignore and other global configurations. ⚡️
+- customise and keep in sync `bash_profile` and `zshrc`. ⚡️
 
 ---
 💡 Inspired by [@kopiro](https://github.com/kopiro/)'s [dotfiles](https://github.com/kopiro/dotfiles).
@@ -35,7 +35,11 @@ Install everything:
 
 ---
 
-This is pretty much everything I need to complete my daily tasks (both for personal and work related stuff).
+## About
+
+Occasionally it comes time to change my Macbook. Once the new toy is unwrapped, instead of starting to play, the first thing I need to do is install an endless list of apps (and I often forget a few) and various customisations. Definitely a chore that  I prefer to avoid doing every time. 
+
+This bash script handles everything in just over a couple of minutes thanks to [Homebrew](https://brew.sh/) 🍺 
 
 ### Apps included:
 - Google Chrome ([Website](https://www.google.com/chrome/))

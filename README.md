@@ -5,7 +5,7 @@ This project is everything I need to feel at 🏠  on **a brand new Macbook**, s
 While I make myself a cup of ☕️ , this script handles all those boring chores such as:
 - installing web browsers 🌎, code editors ⌨️, Docker 🐳, latest PHP, NodeJS and Python 🔧, Spotify 🎧, some messaging apps 💬 and a bunch of other stuff...
 - install a list of global ***npm*** and ***composer*** packages 📦
-- customise and keep in sync `bash_profile` and `zshrc`. ⚡️
+- customise and keep in sync `.bash_profile` and `.zshrc` files. ⚡️
 
 ---
 💡 Inspired by [@kopiro](https://github.com/kopiro/)'s [dotfiles](https://github.com/kopiro/dotfiles).

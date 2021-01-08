@@ -77,6 +77,7 @@ This bash script handles everything in just over a couple of minutes thanks to [
 - Spotify ([Website](https://www.spotify.com/))
 
 ### Fonts included:
+- Inter ([Website](https://rsms.me/inter/))
 - SF-Mono-Nerd ([Github](https://github.com/epk/SF-Mono-Nerd-Font))
 - Fira Code ([Github](https://github.com/tonsky/FiraCode))
 

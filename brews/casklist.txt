@@ -34,6 +34,7 @@ gpg-suite-no-mail
 spotify
 font-sf-mono-nerd-font
 font-fira-code
+font-inter
 suspicious-package
 brooklyn
 aerial

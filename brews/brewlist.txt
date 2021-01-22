@@ -38,6 +38,7 @@ sox
 sqlite
 sqlmap
 terminal-notifier
+the_silver_searcher
 tldr
 wget
 wifi-password

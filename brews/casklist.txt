@@ -27,6 +27,7 @@ the-unarchiver
 transmission
 cyberduck
 vlc
+virtualbox
 docker
 appcleaner
 provisionql

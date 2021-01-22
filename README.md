@@ -72,6 +72,7 @@ This bash script handles everything in just over a couple of minutes thanks to [
 - Transmission ([Website](https://transmissionbt.com/))
 - Cyberduck ([Website](https://cyberduck.io/))
 - VLC ([Website](https://www.videolan.org/vlc/))
+- VirtualBox ([Website](https://www.virtualbox.org/))
 - Docker ([Website](https://www.docker.com/))
 - App Cleaner ([Website](https://freemacsoft.net/appcleaner/))
 - Spotify ([Website](https://www.spotify.com/))

@@ -1,6 +1,10 @@
 # my .dotfiles
+What is this? 
+Check this out: [Dotfiles - ArchWiki](https://wiki.archlinux.org/index.php/Dotfiles)
 
-This project is everything I need to feel at 🏠  on **a brand new Macbook**, so I can start coding right away. 🧑‍💻
+TL;DR
+
+This project is everything I need to feel at 🏠  on **a brand new Macbook**, so I can start coding right away. 🧑‍💻 
 
 While I make myself a cup of ☕️ , this script handles all those boring chores such as:
 - installing web browsers 🌎, code editors ⌨️, Docker 🐳, latest PHP, NodeJS and Python 🔧, Spotify 🎧, some messaging apps 💬 and a bunch of other stuff...

@@ -19,6 +19,9 @@ for e in $(cat ~/.dotfiles/brews/brewlist.txt); do brew install $e; done
 printf "${MSG_OPEN} Install Brew Cask's apps ...${MSG_CLOSE}"
 for e in $(cat ~/.dotfiles/brews/casklist.txt); do brew install --cask $e; done
 
+printf "${MSG_OPEN} Install Mac App Store's apps ...${MSG_CLOSE}"
+for e in $(cat ~/.dotfiles/brews/maslist.txt); do mas install $e; done
+
 printf "${MSG_OPEN} Cleaning ${MSG_CLOSE}"
 qlmanage -r
 brew cleanup

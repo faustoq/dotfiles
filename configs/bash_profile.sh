@@ -130,6 +130,9 @@ alias -s tar="tar tf"
 alias -s tar.gz="echo "
 alias -s ace="unace l"
 
+# Tools
+alias sail='bash vendor/bin/sail'
+
 # Open the current directory in a Finder window
 ofd() {
   open_command "$PWD"

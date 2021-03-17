@@ -8,6 +8,7 @@ printf "${MSG_OPEN} Creating personal folders structure ... ${MSG_CLOSE}"
 mkdir -p ~/Projects
 mkdir -p ~/Personal
 mkdir -p ~/Developer
+mkdir -p ~/Sites
 cd && ls -l
 
 printf "${MSG_OPEN} Installing global Composer packages...${MSG_CLOSE}"

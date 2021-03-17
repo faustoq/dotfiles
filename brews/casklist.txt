@@ -19,6 +19,7 @@ figma
 google-backup-and-sync
 google-cloud-sdk
 hex-fiend
+alt-tab
 gas-mask
 notion
 poedit

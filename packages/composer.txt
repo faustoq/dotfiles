@@ -1,3 +1,2 @@
 friendsofphp/php-cs-fixer
 laravel/installer
-laravel/valet

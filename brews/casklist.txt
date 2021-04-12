@@ -10,6 +10,7 @@ sublime-text
 visual-studio-code
 tableplus
 sequel-pro
+github
 slack
 discord
 telegram

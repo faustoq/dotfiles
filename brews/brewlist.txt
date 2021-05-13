@@ -17,6 +17,7 @@ geoip
 gettext
 git
 git-lfs
+heroku
 htop
 kubectx
 mackup

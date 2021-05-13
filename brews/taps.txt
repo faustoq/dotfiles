@@ -5,3 +5,4 @@ buo/cask-upgrade
 homebrew/cask-fonts
 homebrew/cask-drivers
 epk/epk
+heroku/brew

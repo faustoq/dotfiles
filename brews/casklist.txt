@@ -6,6 +6,7 @@ brave-browser
 xquartz
 charles
 iterm2
+iglance
 sublime-text
 visual-studio-code
 tableplus

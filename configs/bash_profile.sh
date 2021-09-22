@@ -66,6 +66,9 @@ alias pumpitup="osascript -e 'set volume 7'"
 alias md5sum="md5"
 alias sha1sum="shasum"
 
+# Recursively remove all node modules
+alias rm-nm="find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +"
+
 # Git Aliases
 alias push="git push"
 alias pull="git pull"

@@ -3,6 +3,7 @@ autoconf
 autojump
 broot
 ccache
+cloudflare/cloudflare/cloudflared
 cmake
 colordiff
 colortail

@@ -18,6 +18,7 @@ geoip
 gettext
 git
 git-lfs
+graphiql
 heroku
 htop
 kubectx

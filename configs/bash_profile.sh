@@ -78,6 +78,7 @@ alias rebase="git rebase"
 alias master="git checkout master && git pull origin master"
 alias stash="git stash"
 alias checkout="git checkout"
+alias sync-upstream="git fetch --all --prune && git switch main && git merge upstream/main"
 
 # Common alias
 alias l='ls -lFh'     # size, show type, human readable

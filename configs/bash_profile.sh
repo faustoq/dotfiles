@@ -8,16 +8,17 @@ export EDITOR=nano
 export BROWSER=chrome 
 export MPLAYER=vlc
 
-export LANG=en                      # The basic language setting used by applications on the system
-export LC_ALL=en_US.UTF-8           # This variable serves as a powerful override over all the other locale environment variables.
-export LC_CTYPE=UTF-8               # The character set used to display and input text
-export HOMEBREW_NO_ANALYTICS=1      # Tell to brew to not collect analytics data
-export HOMEBREW_NO_AUTO_UPDATE=true # Tell to brew to not auto-update before brew intsall
+export LANG=en                            # The basic language setting used by applications on the system
+export LC_ALL=en_US.UTF-8                 # This variable serves as a powerful override over all the other locale environment variables.
+export LC_CTYPE=UTF-8                     # The character set used to display and input text
+export HOMEBREW_NO_ANALYTICS=1            # Tell to brew to not collect analytics data
+export HOMEBREW_NO_AUTO_UPDATE=true       # Tell to brew to not auto-update before brew intsall
 export NVM_DIR=~/.nvm
-export ZSH_AUTOSUGGEST_USE_ASYNC=1
 export PATH=~/.composer/vendor/bin:$PATH  # Run composer global packages
 export BREW_PATH=/usr/local               # $(brew --prefix)
-export ZSH_THEME=half-life
+export ZSH_THEME="agnoster"               # ZSH Theme 
+export ZSH_AUTOSUGGEST_USE_ASYNC=1        # ZSH async auto-suggestions
+export DEFAULT_USER="quaggiaf"            
 
 # Google Cloud SDK
 export CLOUDSDK_PYTHON="/usr/local/opt/python@3.8/libexec/bin/python"
@@ -47,20 +48,10 @@ done
 
 antigen apply
 
-# One letter alias
-alias y='yarn'
-alias n='npm'
-alias g='git'
-alias d='docker'
-alias k='kubectl'
-alias yw='yarn workspace'
-
 # Syntactic sugar aliases
 alias please='sudo'
-alias sudoedit='sudo nano'
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 alias chrome-debug="chrome --remote-debugging-port=9222"
-alias dc='docker-compose'
 alias stfu="osascript -e 'set volume output muted true'"
 alias pumpitup="osascript -e 'set volume 7'"
 alias md5sum="md5"
@@ -127,14 +118,14 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 
-#list whats inside packed file
+# List whats inside packed file
 alias -s zip="unzip -l"
 alias -s rar="unrar l"
 alias -s tar="tar tf"
 alias -s tar.gz="echo "
 alias -s ace="unace l"
 
-# Tools
+# Laravel
 alias sail='bash vendor/bin/sail'
 
 # Open the current directory in a Finder window

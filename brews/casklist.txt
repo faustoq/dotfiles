@@ -39,6 +39,7 @@ spotify
 font-sf-mono-nerd-font
 font-fira-code
 font-inter
+font-jetbrains-mono
 suspicious-package
 brooklyn
 aerial

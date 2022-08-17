@@ -16,14 +16,16 @@ export HOMEBREW_NO_AUTO_UPDATE=true       # Tell to brew to not auto-update befo
 export NVM_DIR=~/.nvm
 export PATH=~/.composer/vendor/bin:$PATH  # Run composer global packages
 export BREW_PATH=/usr/local               # $(brew --prefix)
-export ZSH_THEME="agnoster"               # ZSH Theme 
+export ZSH_THEME="robbyrussell"           # ZSH Theme 
 export ZSH_AUTOSUGGEST_USE_ASYNC=1        # ZSH async auto-suggestions
-export DEFAULT_USER="quaggiaf"            
+export DEFAULT_USER="fausto"            
+
+source /opt/homebrew/share/antigen/antigen.zsh
 
 # Google Cloud SDK
-export CLOUDSDK_PYTHON="/usr/local/opt/python@3.8/libexec/bin/python"
-source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
-source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+# export CLOUDSDK_PYTHON="/usr/local/opt/python@3.8/libexec/bin/python"
+# source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+# source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
 
 # ZSH things
 OHMYZSH_PLUGINS=(

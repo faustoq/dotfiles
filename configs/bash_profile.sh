@@ -16,7 +16,7 @@ export HOMEBREW_NO_AUTO_UPDATE=true       # Tell to brew to not auto-update befo
 export NVM_DIR=~/.nvm
 export PATH=~/.composer/vendor/bin:$PATH  # Run composer global packages
 export BREW_PATH=/usr/local               # $(brew --prefix)
-export ZSH_THEME="robbyrussell"           # ZSH Theme 
+export ZSH_THEME="agnoster"           # ZSH Theme 
 export ZSH_AUTOSUGGEST_USE_ASYNC=1        # ZSH async auto-suggestions
 export DEFAULT_USER="fausto"            
 

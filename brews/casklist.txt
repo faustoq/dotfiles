@@ -1,3 +1,4 @@
+alfred
 google-chrome
 firefox
 microsoft-edge

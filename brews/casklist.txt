@@ -35,7 +35,6 @@ virtualbox
 docker
 appcleaner
 provisionql
-gpg-suite-no-mail
 spotify
 font-sf-mono-nerd-font
 font-fira-code

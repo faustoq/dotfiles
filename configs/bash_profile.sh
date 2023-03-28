@@ -14,7 +14,8 @@ export LC_CTYPE=UTF-8                     # The character set used to display an
 export HOMEBREW_NO_ANALYTICS=1            # Tell to brew to not collect analytics data
 export HOMEBREW_NO_AUTO_UPDATE=true       # Tell to brew to not auto-update before brew intsall
 export NVM_DIR=~/.nvm
-export PATH=~/.composer/vendor/bin:$PATH  # Run composer global packages
+# export PATH=~/.composer/vendor/bin:$PATH  # Run composer global packages
+export PATH="$PATH:$HOME/.composer/vendor/bin"
 export BREW_PATH=/usr/local               # $(brew --prefix)
 export ZSH_THEME="agnoster"           # ZSH Theme 
 export ZSH_AUTOSUGGEST_USE_ASYNC=1        # ZSH async auto-suggestions
@@ -341,3 +342,5 @@ autoload -Uz compinit && compinit
 [ -f /usr/local/bin/kubectl ] && source <(kubectl completion zsh)
 [ -f /usr/local/opt/zsh-git-prompt/zshrc.sh ] && source /usr/local/opt/zsh-git-prompt/zshrc.sh
 [ -f ~/.config/broot/launcher/bash/br ] && source ~/.config/broot/launcher/bash/br
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*

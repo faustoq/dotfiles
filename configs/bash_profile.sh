@@ -1,25 +1,21 @@
 #!/bin/bash
 
-export CC=gcc   # The name of the C compiler to use
-export CXX=g++  # The name of the C++ compiler to use
-
 export PAGER=less
 export EDITOR=nano
 export BROWSER=chrome 
 export MPLAYER=vlc
 
-export LANG=en                            # The basic language setting used by applications on the system
-export LC_ALL=en_US.UTF-8                 # This variable serves as a powerful override over all the other locale environment variables.
-export LC_CTYPE=UTF-8                     # The character set used to display and input text
-export HOMEBREW_NO_ANALYTICS=1            # Tell to brew to not collect analytics data
-export HOMEBREW_NO_AUTO_UPDATE=true       # Tell to brew to not auto-update before brew intsall
-export NVM_DIR=~/.nvm
-# export PATH=~/.composer/vendor/bin:$PATH  # Run composer global packages
-export PATH="$PATH:$HOME/.composer/vendor/bin"
-export BREW_PATH=/usr/local               # $(brew --prefix)
-export ZSH_THEME="agnoster"           # ZSH Theme 
-export ZSH_AUTOSUGGEST_USE_ASYNC=1        # ZSH async auto-suggestions
-export DEFAULT_USER="fausto"            
+export LANG=en                                  # The basic language setting used by applications on the system
+export LC_ALL=en_US.UTF-8                       # This variable serves as a powerful override over all the other locale environment variables.
+export LC_CTYPE=UTF-8                           # The character set used to display and input text
+export HOMEBREW_NO_ANALYTICS=1                  # Tell to brew to not collect analytics data
+export HOMEBREW_NO_AUTO_UPDATE=true             # Tell to brew to not auto-update before brew intsall
+export NVM_DIR=~/.nvm                           # NVM
+export PATH="$PATH:$HOME/.composer/vendor/bin"  # Composer
+export BREW_PATH=/usr/local                     # $(brew --prefix)
+export ZSH_THEME="agnoster"                     # ZSH Theme 
+export ZSH_AUTOSUGGEST_USE_ASYNC=1              # ZSH async auto-suggestions
+export DEFAULT_USER=$USER                       # Default User
 
 source /opt/homebrew/share/antigen/antigen.zsh
 
@@ -32,11 +28,7 @@ source /opt/homebrew/share/antigen/antigen.zsh
 OHMYZSH_PLUGINS=(
 autojump # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/autojump
 last-working-dir # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/last-working-dir
-docker # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/docker
-sudo # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/sudo
 bgnotify # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/bgnotify
-djui/alias-tips # https://github.com/djui/alias-tips
-command-not-found # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/command-not-found
 zsh-users/zsh-completions # https://github.com/zsh-users/zsh-completions
 zsh-users/zsh-autosuggestions # https://github.com/zsh-users/zsh-autosuggestions
 zsh-users/zsh-syntax-highlighting # https://github.com/zsh-users/zsh-syntax-highlighting
@@ -128,49 +120,12 @@ alias -s tar="tar tf"
 alias -s tar.gz="echo "
 alias -s ace="unace l"
 
-# Laravel
+# Laravel Sail
 alias sail='bash vendor/bin/sail'
 
 # Open the current directory in a Finder window
-ofd() {
+finder() {
   open_command "$PWD"
-}
-
-pfd() {
-  osascript 2>/dev/null <<EOF
-    tell application "Finder"
-      return POSIX path of (target of window 1 as alias)
-    end tell
-EOF
-}
-
-pfs() {
-  osascript 2>/dev/null <<EOF
-    set output to ""
-    tell application "Finder" to set the_selection to selection
-    set item_count to count the_selection
-    repeat with item_index from 1 to count the_selection
-      if item_index is less than item_count then set the_delimiter to "\n"
-      if item_index is item_count then set the_delimiter to ""
-      set output to output & ((item item_index of the_selection as alias)'s POSIX path) & the_delimiter
-    end repeat
-EOF
-}
-
-cdf() {
-  cd "$(pfd)" || return
-}
-
-pushdf() {
-  pushd "$(pfd)" || return
-}
-
-ql() {
-  (( $# > 0 )) && qlmanage -p "$*" &>/dev/null &
-}
-
-vnc() {
-  open "vnc://$1"
 }
 
 # Remove .DS_Store files recursively in a directory, default .
@@ -189,75 +144,6 @@ docker-stop() {
 
 docker-remove() {
   docker rm $(docker ps -aq)
-}
-
-http-sniff() {
-  sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'
-}
-
-http-dump() {
-  sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E "Host\: .*|GET \/.*"
-}
-
-http-server() {
-  port=${1:=8080}
-  open "https://localhost:$port"
-  python3 -m http.server "$port"
-}
-
-https-server() {
-  port=${1:=8443}
-  DIR="$HOME/.https-server"
-  CRT="${DIR}/server.crt"
-  KEY="${DIR}/server.key"
-  KEY_NOPASS="${DIR}/server-nopass.key"
-  PEM="${DIR}/server.pem"
-  PASS="password"
-
-  mkdir -p "${DIR}"
-  if [ ! -f "${CRT}" ] || [ ! -f "${KEY}" ]; then
-      echo "Geneating certificates (for the first time)..."
-      openssl genrsa -aes256 -passout pass:"${PASS}" -out "${KEY}" 2048
-      openssl req -new -key "${KEY}" -passin pass:"${PASS}" -out /tmp/server.csr
-      openssl x509 -req -passin pass:"${PASS}" -days 1024 -in /tmp/server.csr -signkey "${KEY}" -out "${CRT}"
-      openssl rsa -in "${KEY}" -out "${KEY_NOPASS}" -passin pass:"${PASS}"
-      mv "${KEY_NOPASS}" "${KEY}"
-      cat "${CRT}" "${KEY}" > "${PEM}"
-  fi
-
-  pip3 install twisted pyOpenSSL
-  open "https://localhost:${port}"
-  twistd -no web --path . --https="${port}" -c "${CRT}" -k "${KEY}"
-}
-
-nef-to-jpg() {
-  mkdir -p ./JPG
-  find . -name "*.NEF" -print0 | xargs -0 -P "$(sysctl -n hw.ncpu)" -I file sips -s format jpeg file --out ./JPG/file.jpg
-}
-
-socat-x11() {
-  open -a XQuartz
-  socat TCP-LISTEN:6000,reuseaddr,fork UNIX-CLIENT:"$DISPLAY"
-}
-
-tor-enable-proxy() {
-  INTERFACE=${1:="Wi-Fi"}
-  sudo -v
-  while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-
-  # trap ctrl-c and call disable_proxy()
-  disable_proxy() {
-    sudo networksetup -setsocksfirewallproxystate $INTERFACE off
-    echo "SOCKS proxy disabled."
-  }
-  trap disable_proxy INT
-
-  sudo networksetup -setsocksfirewallproxy $INTERFACE 127.0.0.1 9050 off
-  sudo networksetup -setsocksfirewallproxystate $INTERFACE on
-  echo "SOCKS proxy 127.0.0.1:9050 enabled."
-
-  echo "Starting Tor..."
-  tor
 }
 
 upgrade() {
@@ -279,35 +165,6 @@ kill-port() {
   else 
     echo "No app running on port $1"
   fi
-}
-
-pkgj-run-list() {
-  jq .scripts package.json | grep -o '.*\":' | sed -nE 's/\"(.*)\":/\1/p' | awk '{$1=$1};1' | fzf | tr -d '\r' | tr -d '\n'
-}
-
-yarn-x() {
-  PKG_CMD=$(pkgj-run-list)
-  [ -n "$PKG_CMD" ] && print -s "yarn $PKG_CMD" && yarn "$PKG_CMD"
-}
-alias yx="yarn-x"
-
-npm-x() {
-  PKG_CMD=$(pkgj-run-list)
-  [ -n "$PKG_CMD" ] && print -s "npm run $PKG_CMD" && npm run "$PKG_CMD"
-}
-
-sync-code-projects() {
-  CODE_PROJECTS_FILE="$HOME/Library/Application Support/Code/User/projects.json" && \
-  echo "[" > "$CODE_PROJECTS_FILE" && \
-  find ~/Projects \
-    -maxdepth 1 \
-    -type d \
-    -execdir echo "{ \"name\": \"{}\", \"rootPath\": \"$HOME/Projects/{}\", \"enabled\": true }," >> "$CODE_PROJECTS_FILE" \; &&
-  echo "{}]" >> "$CODE_PROJECTS_FILE"
-}
-
-hear-myself() {
-   sox --buffer 128 -d -d
 }
 
 # NVM hook
@@ -335,12 +192,12 @@ add-zsh-hook chpwd load-nvmrc
 autoload -Uz compinit && compinit
 
 # Setup external integrations
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -e ~/.iterm2_shell_integration.zsh ] && source ~/.iterm2_shell_integration.zsh
-[ -s /usr/local/opt/nvm/nvm.sh ] && source /usr/local/opt/nvm/nvm.sh  # This loads nvm
-[ -s /usr/local/opt/nvm/etc/bash_completion.d/nvm ] && source /usr/local/opt/nvm/etc/bash_completion.d/nvm  # This loads nvm bash_completion
-[ -f /usr/local/bin/kubectl ] && source <(kubectl completion zsh)
-[ -f /usr/local/opt/zsh-git-prompt/zshrc.sh ] && source /usr/local/opt/zsh-git-prompt/zshrc.sh
-[ -f ~/.config/broot/launcher/bash/br ] && source ~/.config/broot/launcher/bash/br
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# [ -e ~/.iterm2_shell_integration.zsh ] && source ~/.iterm2_shell_integration.zsh
+# [ -s /usr/local/opt/nvm/nvm.sh ] && source /usr/local/opt/nvm/nvm.sh  # This loads nvm
+# [ -s /usr/local/opt/nvm/etc/bash_completion.d/nvm ] && source /usr/local/opt/nvm/etc/bash_completion.d/nvm  # This loads nvm bash_completion
+# [ -f /usr/local/bin/kubectl ] && source <(kubectl completion zsh)
+# [ -f /usr/local/opt/zsh-git-prompt/zshrc.sh ] && source /usr/local/opt/zsh-git-prompt/zshrc.sh
+# [ -f ~/.config/broot/launcher/bash/br ] && source ~/.config/broot/launcher/bash/br
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*

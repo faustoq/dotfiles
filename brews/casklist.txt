@@ -1,11 +1,9 @@
-alfred
+arc
 google-chrome
 firefox
 microsoft-edge
 blisk
 brave-browser
-xquartz
-charles
 iterm2
 iglance
 sublime-text
@@ -16,13 +14,11 @@ github
 slack
 discord
 telegram
-1password
 dash
 figma
 google-backup-and-sync
 google-cloud-sdk
 hex-fiend
-alt-tab
 gas-mask
 notion
 poedit

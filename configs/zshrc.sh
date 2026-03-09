@@ -24,3 +24,18 @@ export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+# pnpm
+export PNPM_HOME="/Users/fausto/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# DENO
+export DENO_INSTALL="/Users/fausto/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
+
+# DuckDB
+export PATH='/Users/fausto/.duckdb/cli/latest':$PATH

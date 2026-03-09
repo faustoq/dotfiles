@@ -1,12 +1,20 @@
+#!/bin/zsh
+
 [ -f ~/.bash_profile ] && source ~/.bash_profile
 [ -f ~/.bash_profile_custom ] && source ~/.bash_profile_custom
 
 # Oh My Zsh
 export ZSH=~/.oh-my-zsh
 [ -f $ZSH/oh-my-zsh.sh ] && source $ZSH/oh-my-zsh.sh
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
+if [ -e "${HOME}/.iterm2_shell_integration.zsh" ]; then
+  source "${HOME}/.iterm2_shell_integration.zsh"
+fi
 
-eval $(/opt/homebrew/bin/brew shellenv)
+if [ -x "/opt/homebrew/bin/brew" ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [ -x "/usr/local/bin/brew" ]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
 
 # NVM and bash auto completion
 export NVM_DIR="$HOME/.nvm"
@@ -15,7 +23,9 @@ export NVM_DIR="$HOME/.nvm"
 
 # Java Env
 export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
+if command -v jenv >/dev/null 2>&1; then
+  eval "$(jenv init -)"
+fi
 
 # Android SDK and Emulator
 export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk

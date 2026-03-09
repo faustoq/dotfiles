@@ -4,28 +4,55 @@ BR='\n\n'
 MSG_OPEN='\n\n\033[40;38;5;82m➡️ '
 MSG_CLOSE='\033[0m\n\n'
 
-printf "${MSG_OPEN} Installing and upgrading Brew ${MSG_CLOSE}"
-[ -s "/usr/local/bin/brew" ] || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+print_step() {
+  printf '%b' "${MSG_OPEN}$1${MSG_CLOSE}"
+}
+
+install_from_list() {
+  local list_file="$1"
+  shift
+
+  while IFS= read -r entry || [ -n "$entry" ]; do
+    [ -z "$entry" ] && continue
+    case "$entry" in
+      \#*) continue ;;
+    esac
+    "$@" "$entry"
+  done < "$list_file"
+}
+
+print_step " Installing and upgrading Brew "
+if ! command -v brew >/dev/null 2>&1; then
+  NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+if [ -x "/opt/homebrew/bin/brew" ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [ -x "/usr/local/bin/brew" ]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
 
 brew analytics off
 
-printf "${MSG_OPEN} Tapping Brew's ${MSG_CLOSE}"
-for e in $(cat ~/.dotfiles/brews/taps.txt); do brew tap $e; done
+print_step " Tapping Brew's "
+install_from_list "$HOME/.dotfiles/brews/taps.txt" brew tap
 brew update
 
-printf "${MSG_OPEN} Install Brew's software base ...${MSG_CLOSE}"
-for e in $(cat ~/.dotfiles/brews/brewlist.txt); do brew install $e; done
+print_step " Install Brew's software base ..."
+install_from_list "$HOME/.dotfiles/brews/brewlist.txt" brew install
 
-printf "${MSG_OPEN} Install Brew Cask's apps ...${MSG_CLOSE}"
-for e in $(cat ~/.dotfiles/brews/casklist.txt); do brew install --cask $e; done
+print_step " Install Brew Cask's apps ..."
+install_from_list "$HOME/.dotfiles/brews/casklist.txt" brew install --cask
 
-printf "${MSG_OPEN} Install Mac App Store's apps ...${MSG_CLOSE}"
-for e in $(cat ~/.dotfiles/brews/maslist.txt); do mas install $e; done
+if command -v mas >/dev/null 2>&1; then
+  print_step " Install Mac App Store's apps ..."
+  install_from_list "$HOME/.dotfiles/brews/maslist.txt" mas install
+fi
 
-printf "${MSG_OPEN} Cleaning ${MSG_CLOSE}"
+print_step " Cleaning "
 qlmanage -r
 brew cleanup
 
-printf "${BR}✨ Done.${BR}"
+printf '%b' "${BR}✨ Done.${BR}"
 
 exit

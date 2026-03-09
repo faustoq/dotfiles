@@ -2,7 +2,7 @@
 
 export PAGER=less
 export EDITOR=nano
-export BROWSER=chrome 
+export BROWSER=chrome
 export MPLAYER=vlc
 
 export LANG=en                                  # The basic language setting used by applications on the system
@@ -12,12 +12,14 @@ export HOMEBREW_NO_ANALYTICS=1                  # Tell to brew to not collect an
 export HOMEBREW_NO_AUTO_UPDATE=true             # Tell to brew to not auto-update before brew intsall
 export NVM_DIR=~/.nvm                           # NVM
 export PATH="$PATH:$HOME/.composer/vendor/bin"  # Composer
-export BREW_PATH=/usr/local                     # $(brew --prefix)
 export ZSH_THEME="agnoster"                     # ZSH Theme 
 export ZSH_AUTOSUGGEST_USE_ASYNC=1              # ZSH async auto-suggestions
 export DEFAULT_USER=$USER                       # Default User
 
-source /opt/homebrew/share/antigen/antigen.zsh
+if command -v brew >/dev/null 2>&1; then
+  BREW_PATH="$(brew --prefix 2>/dev/null)"
+  export BREW_PATH
+fi
 
 # Google Cloud SDK
 # export CLOUDSDK_PYTHON="/usr/local/opt/python@3.8/libexec/bin/python"
@@ -34,14 +36,23 @@ zsh-users/zsh-autosuggestions # https://github.com/zsh-users/zsh-autosuggestions
 zsh-users/zsh-syntax-highlighting # https://github.com/zsh-users/zsh-syntax-highlighting
 )
 
-# Setup antigen
-[ -f /usr/local/share/antigen/antigen.zsh ] && source /usr/local/share/antigen/antigen.zsh
-antigen use oh-my-zsh
-for plugin in "${OHMYZSH_PLUGINS[@]}"; do
-  antigen bundle "$plugin"
-done
+if [ -n "$ZSH_VERSION" ]; then
+  if [ -f /opt/homebrew/share/antigen/antigen.zsh ]; then
+    # shellcheck source=/dev/null
+    source /opt/homebrew/share/antigen/antigen.zsh
+  elif [ -f /usr/local/share/antigen/antigen.zsh ]; then
+    # shellcheck source=/dev/null
+    source /usr/local/share/antigen/antigen.zsh
+  fi
 
-antigen apply
+  if command -v antigen >/dev/null 2>&1; then
+    antigen use oh-my-zsh
+    for plugin in "${OHMYZSH_PLUGINS[@]}"; do
+      antigen bundle "$plugin"
+    done
+    antigen apply
+  fi
+fi
 
 # Syntactic sugar aliases
 alias please='sudo'
@@ -78,24 +89,26 @@ alias lS='ls -1FSsh'
 alias lart='ls -1Fcart'
 alias lrt='ls -1Fcrt'
 
-alias zshrc='${=EDITOR} ~/.zshrc'
-alias bashprof='${=EDITOR} ~/.bash_profile'
+alias zshrc='$EDITOR ~/.zshrc'
+alias bashprof='$EDITOR ~/.bash_profile'
 
 alias grep='grep --color'
 alias sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS} '
 
 alias t='tail -f'
 
-# Command line head / tail shortcuts
-alias -g H='| head'
-alias -g T='| tail'
-alias -g G='| grep'
-alias -g L="| less"
-alias -g M="| most"
-alias -g LL="2>&1 | less"
-alias -g CA="2>&1 | cat -A"
-alias -g NE="2> /dev/null"
-alias -g NUL="> /dev/null 2>&1"
+if [ -n "$ZSH_VERSION" ]; then
+  # Command line head / tail shortcuts (zsh global aliases)
+  alias -g H='| head'
+  alias -g T='| tail'
+  alias -g G='| grep'
+  alias -g L='| less'
+  alias -g M='| most'
+  alias -g LL='2>&1 | less'
+  alias -g CA='2>&1 | cat -A'
+  alias -g NE='2> /dev/null'
+  alias -g NUL='> /dev/null 2>&1'
+fi
 
 alias dud='du -d 1 -h'
 alias duf='du -sh *'
@@ -113,19 +126,21 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 
-# List whats inside packed file
-alias -s zip="unzip -l"
-alias -s rar="unrar l"
-alias -s tar="tar tf"
-alias -s tar.gz="echo "
-alias -s ace="unace l"
+if [ -n "$ZSH_VERSION" ]; then
+  # List what's inside packed files (zsh suffix aliases)
+  alias -s zip='unzip -l'
+  alias -s rar='unrar l'
+  alias -s tar='tar tf'
+  alias -s tar.gz='echo '
+  alias -s ace='unace l'
+fi
 
 # Laravel Sail
 alias sail='bash vendor/bin/sail'
 
 # Open the current directory in a Finder window
 finder() {
-  open_command "$PWD"
+  open "$PWD"
 }
 
 # Remove .DS_Store files recursively in a directory, default .
@@ -139,17 +154,21 @@ flush() {
 }
 
 docker-stop() {
-  docker stop $(docker ps -aq)
+  local ids
+  ids="$(docker ps -aq)"
+  [ -n "$ids" ] && printf '%s\n' "$ids" | xargs docker stop
 }
 
 docker-remove() {
-  docker rm $(docker ps -aq)
+  local ids
+  ids="$(docker ps -aq)"
+  [ -n "$ids" ] && printf '%s\n' "$ids" | xargs docker rm
 }
 
 upgrade() {
   brew update
   brew upgrade
-  brew cask upgrade
+  brew upgrade --cask
   mas upgrade
 }
 
@@ -158,7 +177,7 @@ ip() {
 }
 
 kill-port() {
-  pid=$(lsof -n -i4TCP:$1 | awk '{print $2}' | tail -n 1)
+  pid=$(lsof -n -i4TCP:"$1" | awk '{print $2}' | tail -n 1)
   if [ -n "$pid" ]; then 
     echo "Killing PID: $pid"
     kill -9 "$pid"
@@ -167,29 +186,35 @@ kill-port() {
   fi
 }
 
-# NVM hook
-autoload -U add-zsh-hook
-load-nvmrc() {
-  local node_version="$(nvm version)"
-  local nvmrc_path="$(nvm_find_nvmrc)"
+if [ -n "$ZSH_VERSION" ] && command -v nvm >/dev/null 2>&1; then
+  # NVM hook
+  autoload -U add-zsh-hook
+  load-nvmrc() {
+    local node_version
+    local nvmrc_path
+    local nvmrc_node_version
 
-  if [ -n "$nvmrc_path" ]; then
-    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+    node_version="$(nvm version)"
+    nvmrc_path="$(nvm_find_nvmrc)"
 
-    if [ "$nvmrc_node_version" = "N/A" ]; then
-      nvm install
-    elif [ "$nvmrc_node_version" != "$node_version" ]; then
-      nvm use
+    if [ -n "$nvmrc_path" ]; then
+      nvmrc_node_version="$(nvm version "$(cat "${nvmrc_path}")")"
+
+      if [ "$nvmrc_node_version" = "N/A" ]; then
+        nvm install
+      elif [ "$nvmrc_node_version" != "$node_version" ]; then
+        nvm use
+      fi
+    elif [ "$node_version" != "$(nvm version default)" ]; then
+      echo "Reverting to nvm default version"
+      nvm use default
     fi
-  elif [ "$node_version" != "$(nvm version default)" ]; then
-    echo "Reverting to nvm default version"
-    nvm use default
-  fi
-}
-add-zsh-hook chpwd load-nvmrc
+  }
+  add-zsh-hook chpwd load-nvmrc
 
-# Autoload completion
-autoload -Uz compinit && compinit
+  # Autoload completion
+  autoload -Uz compinit && compinit
+fi
 
 # Setup external integrations
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -200,6 +225,8 @@ autoload -Uz compinit && compinit
 # [ -f /usr/local/opt/zsh-git-prompt/zshrc.sh ] && source /usr/local/opt/zsh-git-prompt/zshrc.sh
 # [ -f ~/.config/broot/launcher/bash/br ] && source ~/.config/broot/launcher/bash/br
 
+# shellcheck source=/dev/null
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
-. "$HOME/.cargo/env"
+# shellcheck source=/dev/null
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"

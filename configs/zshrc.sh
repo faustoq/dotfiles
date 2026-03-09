@@ -22,6 +22,8 @@ fi
 
 # Oh My Zsh
 export ZSH=~/.oh-my-zsh
+export DISABLE_AUTO_UPDATE="true"
+export DISABLE_UPDATE_PROMPT="true"
 export ZSH_COMPDUMP="${HOME}/.zcompdump-${ZSH_VERSION}"
 [ -f $ZSH/oh-my-zsh.sh ] && source $ZSH/oh-my-zsh.sh
 if [ -e "${HOME}/.iterm2_shell_integration.zsh" ]; then

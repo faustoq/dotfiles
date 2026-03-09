@@ -206,7 +206,6 @@ if [ -n "$ZSH_VERSION" ] && command -v nvm >/dev/null 2>&1; then
         nvm use
       fi
     elif [ "$node_version" != "$(nvm version default)" ]; then
-      echo "Reverting to nvm default version"
       nvm use default
     fi
   }

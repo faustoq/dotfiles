@@ -3,8 +3,26 @@
 [ -f ~/.bash_profile ] && source ~/.bash_profile
 [ -f ~/.bash_profile_custom ] && source ~/.bash_profile_custom
 
+# Remove broken Homebrew completion symlinks that make compinit fail.
+if [ -L "/opt/homebrew/share/zsh/site-functions/_brew_services" ] && \
+  [ ! -e "/opt/homebrew/share/zsh/site-functions/_brew_services" ]; then
+  rm -f "/opt/homebrew/share/zsh/site-functions/_brew_services"
+fi
+if [ -L "/usr/local/share/zsh/site-functions/_brew_services" ] && \
+  [ ! -e "/usr/local/share/zsh/site-functions/_brew_services" ]; then
+  rm -f "/usr/local/share/zsh/site-functions/_brew_services"
+fi
+
+# Reset stale zsh completion cache if Homebrew completion files changed.
+if [ -f "${HOME}/.zcompdump" ] && \
+  grep -q "_brew_services" "${HOME}/.zcompdump" && \
+  [ ! -f "/opt/homebrew/share/zsh/site-functions/_brew_services" ]; then
+  rm -f "${HOME}/.zcompdump" "${HOME}/.zcompdump.zwc"
+fi
+
 # Oh My Zsh
 export ZSH=~/.oh-my-zsh
+export ZSH_COMPDUMP="${HOME}/.zcompdump-${ZSH_VERSION}"
 [ -f $ZSH/oh-my-zsh.sh ] && source $ZSH/oh-my-zsh.sh
 if [ -e "${HOME}/.iterm2_shell_integration.zsh" ]; then
   source "${HOME}/.iterm2_shell_integration.zsh"

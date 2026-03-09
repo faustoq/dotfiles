@@ -46,11 +46,11 @@ if [ -n "$ZSH_VERSION" ]; then
   fi
 
   if command -v antigen >/dev/null 2>&1; then
-    antigen use oh-my-zsh
+    antigen use oh-my-zsh >/dev/null 2>&1
     for plugin in "${OHMYZSH_PLUGINS[@]}"; do
-      antigen bundle "$plugin"
+      antigen bundle "$plugin" >/dev/null 2>&1
     done
-    antigen apply
+    antigen apply >/dev/null 2>&1
   fi
 fi
 
@@ -211,9 +211,6 @@ if [ -n "$ZSH_VERSION" ] && command -v nvm >/dev/null 2>&1; then
     fi
   }
   add-zsh-hook chpwd load-nvmrc
-
-  # Autoload completion
-  autoload -Uz compinit && compinit
 fi
 
 # Setup external integrations

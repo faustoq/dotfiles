@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 BR='\n\n'
 MSG_OPEN='\n\n\033[40;38;5;82m➡️ '
 MSG_CLOSE='\033[0m\n\n'

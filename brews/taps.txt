@@ -1,5 +1,4 @@
 homebrew/bundle
-homebrew/services
 homebrew/core
 buo/cask-upgrade
 homebrew/cask-fonts

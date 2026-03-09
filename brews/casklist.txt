@@ -2,14 +2,11 @@ arc
 google-chrome
 firefox
 microsoft-edge
-blisk
 brave-browser
 iterm2
 iglance
-sublime-text
 visual-studio-code
 tableplus
-sequel-pro
 github
 slack
 discord
@@ -27,7 +24,6 @@ the-unarchiver
 transmission
 cyberduck
 vlc
-virtualbox
 docker
 appcleaner
 provisionql

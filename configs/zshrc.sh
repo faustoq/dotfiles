@@ -26,9 +26,6 @@ export DISABLE_AUTO_UPDATE="true"
 export DISABLE_UPDATE_PROMPT="true"
 export ZSH_COMPDUMP="${HOME}/.zcompdump-${ZSH_VERSION}"
 [ -f $ZSH/oh-my-zsh.sh ] && source $ZSH/oh-my-zsh.sh
-if [ -e "${HOME}/.iterm2_shell_integration.zsh" ]; then
-  source "${HOME}/.iterm2_shell_integration.zsh"
-fi
 
 if [ -x "/opt/homebrew/bin/brew" ]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"

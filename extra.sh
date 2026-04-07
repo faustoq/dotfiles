@@ -41,9 +41,6 @@ if command -v npm >/dev/null 2>&1; then
   npm list -g --depth 0
 fi
 
-print_step " Installing iTerm shell integration..."
-curl -fsSL https://iterm2.com/shell_integration/install_shell_integration.sh | bash
-
 print_step " Installing OH-MY-ZSH..."
 brew install antigen
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"

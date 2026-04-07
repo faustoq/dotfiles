@@ -64,7 +64,7 @@ These scripts handle everything in just over a couple of minutes thanks to [Home
 - Firefox ([Website](https://www.mozilla.org/en-US/firefox/))
 - Microsoft Edge ([Website](https://www.microsoft.com/edge))
 - Brave ([Website](https://brave.com/))
-- iTerm2 ([Website](https://iterm2.com/))
+- Ghostty ([Website](https://ghostty.org/))
 - Visual Studio Code ([Website](https://code.visualstudio.com/))
 - Table Plus ([Website](https://tableplus.com/))
 - GitHub Desktop ([Website](https://desktop.github.com/))
@@ -115,7 +115,6 @@ For the complete and always up-to-date package lists, check:
 
 ## Extras:
 
-- iTerm shell integration ([more informations](https://iterm2.com/documentation-shell-integration.html))
 - [oh my zsh](https://ohmyz.sh/) setup and configuration
 - sync `bash` and `zsh` profile configurations
 - global `.gitignore`

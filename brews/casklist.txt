@@ -3,7 +3,7 @@ google-chrome
 firefox
 microsoft-edge
 brave-browser
-iterm2
+ghostty
 iglance
 visual-studio-code
 tableplus

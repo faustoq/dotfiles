@@ -25,3 +25,4 @@ eslint-config-standard-jsx
 eslint-plugin-react
 eslint-config-prettier
 eslint-plugin-prettier
+@anthropic-ai/claude-code

@@ -66,3 +66,6 @@ export PATH="$DENO_INSTALL/bin:$PATH"
 
 # DuckDB
 export PATH='/Users/fausto/.duckdb/cli/latest':$PATH
+
+# Claude Code
+export PATH="$HOME/.local/bin:$PATH"
